@@ -25,11 +25,22 @@ namespace MyToDoMauiApp.Repositories
             connection = new SQLiteAsyncConnection(databasePath);
 
             await connection.CreateTableAsync<TodoItem>();
+
+            if(await connection.Table<TodoItem>().CountAsync() == 0)
+            {
+                await connection.InsertAsync(new TodoItem()
+                {
+                    Title = "Welcome to MyToDo App",
+                    Due = DateTime.UtcNow
+                });
+            }
         }
 
         public async Task AddItemAsync(TodoItem item)
         {
-            throw new NotImplementedException();
+            await CreateConnectionAsync();
+            await connection.InsertAsync(item);
+            OnItemAdded?.Invoke(this, item); //notify any subscribers
         }
 
         public async Task AddOrUpdateAsync(TodoItem item)
@@ -46,12 +57,15 @@ namespace MyToDoMauiApp.Repositories
 
         public async Task<List<TodoItem>> GetItemsAsync()
         {
-            return null; // Just to make it build
+            await CreateConnectionAsync();
+            return await connection.Table<TodoItem>().ToListAsync();
         }
 
         public async Task UpdateItemAsync(TodoItem item)
         {
-            throw new NotImplementedException();
+            await CreateConnectionAsync();
+            await connection.UpdateAsync(item);
+            OnItemUpdated?.Invoke(this, item);
         }
     }
 }
