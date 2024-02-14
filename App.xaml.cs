@@ -2,11 +2,11 @@
 
 public partial class App : Application
 {
-	public App()
+	public App(Views.MainView view)
 	{
 		InitializeComponent();
 
-		MainPage = new AppShell();
+		MainPage = new NavigationPage(view);
 	}
 }
 
