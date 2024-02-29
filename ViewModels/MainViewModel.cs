@@ -16,6 +16,8 @@ namespace MyToDoMauiApp.ViewModels
         [ObservableProperty]
         ObservableCollection<TodoItemViewModel>? items;
 
+        [ObservableProperty] TodoItemViewModel? selectedItem;
+
         public MainViewModel(ITodoItemRepository repository, IServiceProvider services)
 		{
             repository.OnItemAdded += (sender, item) => items?.Add(CreateTodoItemViewModel(item));
@@ -24,6 +26,26 @@ namespace MyToDoMauiApp.ViewModels
             this.repository = repository;
             this.services = services;
             Task.Run(async () => await LoadDataAsync());
+        }
+
+        partial void OnSelectedItemChanging(TodoItemViewModel? value)
+        {
+            if(value == null)
+            {
+                return;
+            }
+
+            MainThread.BeginInvokeOnMainThread(async () => await NavigateToItemAsync(value));
+        }
+
+        private async Task NavigateToItemAsync(TodoItemViewModel item)
+        {
+            var itemView = services.GetRequiredService<ItemView>();
+            var vm = itemView.BindingContext as ItemViewModel;
+            vm.Item = item.Item;
+            itemView.Title = "Edit To-Do Item";
+
+            await Navigation.PushAsync(itemView);
         }
 
         private async Task LoadDataAsync()
