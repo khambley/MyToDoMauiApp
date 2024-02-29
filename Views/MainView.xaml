@@ -23,7 +23,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Text="Toggle filter" />
+        <Button Text="Toggle filter" Padding="10" Margin="20"/>
 
         <ListView Grid.Row="1"
                   RowHeight="70"
@@ -41,7 +41,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <BoxView Grid.RowSpan="2"
+                            <BoxView Grid.RowSpan="2" Margin="0,0,5,0"
                                      BackgroundColor="{Binding Item.Completed, Converter={StaticResource statusColorConverter}}" />
 
                             <Label Grid.Column="1"
