@@ -1,6 +1,7 @@
 ﻿using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using MyToDoMauiApp.Models;
+using CommunityToolkit.Mvvm.Input;
 
 namespace MyToDoMauiApp.ViewModels
 {
@@ -16,7 +17,12 @@ namespace MyToDoMauiApp.ViewModels
 
 		public string StatusText => Item.Completed ? "Reactivate" : "Completed";
 
-
+		[RelayCommand]
+		void ToggleCompleted()
+		{
+			Item.Completed = !Item.Completed;
+			ItemStatusChanged?.Invoke(this, new EventArgs());
+		}
 	}
 }
 
