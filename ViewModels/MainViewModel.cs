@@ -30,6 +30,7 @@ namespace MyToDoMauiApp.ViewModels
         {
             var items = await repository.GetItemsAsync();
             var itemViewModels = items.Select(i => CreateTodoItemViewModel(i));
+            Items = new ObservableCollection<TodoItemViewModel>(itemViewModels);
         }
 
         private TodoItemViewModel CreateTodoItemViewModel(TodoItem item)

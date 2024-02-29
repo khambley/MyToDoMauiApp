@@ -76,11 +76,13 @@
 	  <None Remove="Repositories\" />
 	  <None Remove="ViewModels\" />
 	  <None Remove="Views\" />
+	  <None Remove="Converters\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Models\" />
 	  <Folder Include="Repositories\" />
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\" />
+	  <Folder Include="Converters\" />
 	</ItemGroup>
 </Project>
