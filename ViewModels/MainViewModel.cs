@@ -16,7 +16,11 @@ namespace MyToDoMauiApp.ViewModels
         [ObservableProperty]
         ObservableCollection<TodoItemViewModel>? items;
 
-        [ObservableProperty] TodoItemViewModel? selectedItem;
+        [ObservableProperty]
+        TodoItemViewModel? selectedItem;
+
+        [ObservableProperty]
+        bool showAll;
 
         public MainViewModel(ITodoItemRepository repository, IServiceProvider services)
 		{
@@ -26,6 +30,7 @@ namespace MyToDoMauiApp.ViewModels
             this.repository = repository;
             this.services = services;
             Task.Run(async () => await LoadDataAsync());
+            ShowAll = true;
         }
 
         partial void OnSelectedItemChanging(TodoItemViewModel? value)
@@ -51,7 +56,15 @@ namespace MyToDoMauiApp.ViewModels
         private async Task LoadDataAsync()
         {
             var items = await repository.GetItemsAsync();
+
+            //Show only active (not completed) items
+            if (!ShowAll)
+            {
+                items = items.Where(x => x.Completed == false).ToList();
+            }
+
             var itemViewModels = items.Select(i => CreateTodoItemViewModel(i));
+
             Items = new ObservableCollection<TodoItemViewModel>(itemViewModels);
         }
 
@@ -64,10 +77,27 @@ namespace MyToDoMauiApp.ViewModels
 
         private void ItemStatusChanged(object? sender, EventArgs e)
         {
+            if(sender is TodoItemViewModel item)
+            {
+                if(!ShowAll && item.Item.Completed)
+                {
+                    Items?.Remove(item);
+                }
+
+                Task.Run(async() => await repository.UpdateItemAsync(item.Item));
+
+            }
         }
 
         [RelayCommand]
         public async Task AddItemAsync() => await Navigation.PushAsync(services.GetRequiredService<ItemView>());
+
+        [RelayCommand]
+        private async Task ToggleFilterAsync()
+        {
+            ShowAll = !ShowAll;
+            await LoadDataAsync();
+        }
     }
 }
 

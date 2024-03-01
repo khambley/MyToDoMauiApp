@@ -10,6 +10,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:StatusColorConverter x:Key="statusColorConverter"/>
+            <converters:FilterTextConverter x:Key="filterTextConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -23,7 +24,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Text="Toggle filter" Padding="10" Margin="20"/>
+        <Button Text="{Binding ShowAll, Converter={StaticResource filterTextConverter}, StringFormat='Filter: {0}'}"
+                Command="{Binding ToggleFilterCommand}"
+                Padding="10" Margin="20" />
 
         <ListView x:Name="ItemsListView"
                   Grid.Row="1"
