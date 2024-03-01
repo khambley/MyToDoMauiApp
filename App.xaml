@@ -14,6 +14,9 @@
                     <Setter Property="BarBackgroundColor" Value="#A25EBB" />
                     <Setter Property="BarTextColor" Value="#FFFFFF" />
                 </Style>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="Medium" />
+                </Style>
                 <Style x:Key="FilterButton" TargetType="Button">
                     <Setter Property="Margin" Value="15" />
                     <Setter Property="BorderWidth" Value="1" />
