@@ -67,14 +67,15 @@
 
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Text="{Binding Item.Due}"
+                                   Text="{Binding Item.Due, StringFormat='{0:MMMM d, yyyy}'}"
                                    FontSize="Micro" />
 
                             <Label Grid.Column="1" Grid.Row="1"
                                    HorizontalTextAlignment="End"
                                    Text="Completed"
                                    IsVisible="{Binding Item.Completed}"
-                                   FontSize="Micro" />
+                                   FontSize="Micro"
+                                   TextColor="{StaticResource CompletedColor}" />
 
                         </Grid>
 

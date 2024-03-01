@@ -31,6 +31,6 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.superdesigngirl.mytodo</string>
 	<key>CFBundleDisplayName</key>
-	<string>MyToDo</string>
+	<string>MyToDoList</string>
 </dict>
 </plist>
