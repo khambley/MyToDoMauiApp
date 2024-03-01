@@ -22,6 +22,13 @@ namespace MyToDoMauiApp.ViewModels
         [ObservableProperty]
         bool showAll;
 
+        [RelayCommand]
+        private async Task ToggleFilterAsync()
+        {
+            ShowAll = !ShowAll;
+            await LoadDataAsync();
+        }
+
         public MainViewModel(ITodoItemRepository repository, IServiceProvider services)
 		{
             repository.OnItemAdded += (sender, item) => items?.Add(CreateTodoItemViewModel(item));
@@ -30,7 +37,6 @@ namespace MyToDoMauiApp.ViewModels
             this.repository = repository;
             this.services = services;
             Task.Run(async () => await LoadDataAsync());
-            ShowAll = true;
         }
 
         partial void OnSelectedItemChanging(TodoItemViewModel? value)
@@ -92,12 +98,7 @@ namespace MyToDoMauiApp.ViewModels
         [RelayCommand]
         public async Task AddItemAsync() => await Navigation.PushAsync(services.GetRequiredService<ItemView>());
 
-        [RelayCommand]
-        private async Task ToggleFilterAsync()
-        {
-            ShowAll = !ShowAll;
-            await LoadDataAsync();
-        }
+        
     }
 }
 

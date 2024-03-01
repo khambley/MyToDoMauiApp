@@ -9,7 +9,7 @@
              Title="My To-Do List">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:StatusColorConverter x:Key="statusColorConverter"/>
+            <converters:StatusColorConverter x:Key="statusColorConverter" />
             <converters:FilterTextConverter x:Key="filterTextConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -24,9 +24,18 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Text="{Binding ShowAll, Converter={StaticResource filterTextConverter}, StringFormat='Filter: {0}'}"
-                Command="{Binding ToggleFilterCommand}"
-                Padding="10" Margin="20" />
+        <Button Style="{DynamicResource FilterButton}" 
+                Text="{Binding ShowAll,Converter={StaticResource filterTextConverter}, StringFormat='Filter: {0}'}"
+                BackgroundColor="{DynamicResource ActiveColor}"
+                TextColor="Black"
+                Command="{Binding ToggleFilterCommand}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource CompletedColor}"/>
+                    <Setter Property="TextColor" Value="White" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
 
         <ListView x:Name="ItemsListView"
                   Grid.Row="1"
