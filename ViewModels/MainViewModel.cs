@@ -33,6 +33,7 @@ namespace MyToDoMauiApp.ViewModels
 		{
             repository.OnItemAdded += (sender, item) => items?.Add(CreateTodoItemViewModel(item));
             repository.OnItemUpdated += (sender, item) => Task.Run(async () => await LoadDataAsync());
+            repository.OnItemDeleted += (sender, item) => Task.Run(async () => await LoadDataAsync());
 
             this.repository = repository;
             this.services = services;

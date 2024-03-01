@@ -30,6 +30,21 @@ namespace MyToDoMauiApp.ViewModels
 			await repository.AddOrUpdateAsync(Item);
 			await Navigation.PopAsync();
 		}
+
+		[RelayCommand]
+		public async Task DeleteItemAsync()
+		{
+			bool answer = await Application.Current.MainPage.DisplayAlert("Delete To-do Item", "Are you sure you want to delete this item? This cannot be undone.", "Yes", "Cancel");
+			if (answer)
+			{
+                await repository.DeleteItemAsync(Item);
+                await Navigation.PopAsync();
+            }
+			else
+			{
+                await Application.Current.MainPage.DisplayAlert("Message", "The item was not deleted.", "OK");
+            }
+		}
 	}
 }
 

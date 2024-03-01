@@ -12,13 +12,17 @@ namespace MyToDoMauiApp.Repositories
 
         public event EventHandler<TodoItem> OnItemUpdated;
 
+        public event EventHandler<TodoItem> OnItemDeleted;
+
         private async Task CreateConnectionAsync()
         {
             if(connection != null)
             {
                 return;
             }
-            var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            // doesn't work on Android -> Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var documentPath = FileSystem.AppDataDirectory; 
 
             var databasePath = Path.Combine(documentPath, "TodoItems.db");
 
@@ -41,6 +45,13 @@ namespace MyToDoMauiApp.Repositories
             await CreateConnectionAsync();
             await connection.InsertAsync(item);
             OnItemAdded?.Invoke(this, item); //notify any subscribers
+        }
+
+        public async Task DeleteItemAsync(TodoItem item)
+        {
+            await CreateConnectionAsync();
+            await connection.DeleteAsync(item);
+            OnItemDeleted?.Invoke(this, item);
         }
 
         public async Task AddOrUpdateAsync(TodoItem item)

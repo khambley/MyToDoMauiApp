@@ -5,6 +5,7 @@
              x:Class="MyToDoMauiApp.Views.ItemView"
              x:DataType="viewModels:ItemViewModel"
              Title="New To-Do Item">
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
     </ContentPage.ToolbarItems>
@@ -22,5 +23,12 @@
             <Label Text="Completed" VerticalTextAlignment="Center" Padding="10,0,0,0" />
         </StackLayout>
 
+        <Button Text="Delete Item"
+                BackgroundColor="Red"
+                TextColor="White"
+                FontSize="Medium"
+                Padding="10"
+                Margin="0,20,0,0"
+                Command="{Binding DeleteItemCommand}" />
     </StackLayout>
 </ContentPage>
