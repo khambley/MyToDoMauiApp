@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.Extensions.Logging;
 using MyToDoMauiApp.Repositories;
 
 namespace MyToDoMauiApp;
@@ -22,8 +25,11 @@ public static class MauiProgram
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
+        AppCenter.Start("ios=c493b77d-6140-4b5b-af79-cf29b09e6e5c;" +
+                  "android=697f52e7-992c-4125-b883-e9bcadc12772;",
+                  typeof(Analytics), typeof(Crashes));
 
-		return builder.Build();
+        return builder.Build();
 	}
 
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder mauiAppBuilder)
