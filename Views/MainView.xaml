@@ -6,7 +6,7 @@
              xmlns:viewModels="clr-namespace:MyToDoMauiApp.ViewModels"
              x:Class="MyToDoMauiApp.Views.MainView"
              x:DataType="viewModels:MainViewModel"
-             Title="My To-Do List">
+             Title="DayByDay Task Lists">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:StatusColorConverter x:Key="statusColorConverter" />

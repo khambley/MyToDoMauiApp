@@ -9,10 +9,12 @@ namespace MyToDoMauiApp.Repositories
         private SQLiteAsyncConnection connection;
 
         public event EventHandler<TodoItem> OnItemAdded;
-
         public event EventHandler<TodoItem> OnItemUpdated;
-
         public event EventHandler<TodoItem> OnItemDeleted;
+
+        public event EventHandler<ToDoList> OnListAdded;
+        public event EventHandler<ToDoList> OnListUpdated;
+        public event EventHandler<ToDoList> OnListDeleted;
 
         private async Task CreateConnectionAsync()
         {
@@ -30,16 +32,29 @@ namespace MyToDoMauiApp.Repositories
 
             await connection.CreateTableAsync<TodoItem>();
 
-            if(await connection.Table<TodoItem>().CountAsync() == 0)
+            if (await connection.Table<TodoItem>().CountAsync() == 0)
             {
                 await connection.InsertAsync(new TodoItem()
                 {
-                    Title = "Welcome to MyToDo App",
+                    Title = "Welcome to DayByDayTasks App",
                     Due = DateTime.UtcNow
+                });
+            }
+
+            await connection.CreateTableAsync<ToDoList>();
+
+            if (await connection.Table<ToDoList>().CountAsync() == 0)
+            {
+                await connection.InsertAsync(new ToDoList()
+                {
+                    DateName = DateTime.Now,
+                    TodoItems = await GetItemsAsync()
                 });
             }
         }
 
+        #region ToDo Items
+        
         public async Task AddItemAsync(TodoItem item)
         {
             await CreateConnectionAsync();
@@ -78,6 +93,50 @@ namespace MyToDoMauiApp.Repositories
             await connection.UpdateAsync(item);
             OnItemUpdated?.Invoke(this, item);
         }
+
+        #endregion
+
+        #region ToDoLists
+
+        public async Task AddListAsync(ToDoList list)
+        {
+            await CreateConnectionAsync();
+            await connection.InsertAsync(list);
+            OnListAdded?.Invoke(this, list); //notify any subscribers
+        }
+
+        public async Task DeleteListAsync(ToDoList list)
+        {
+            await CreateConnectionAsync();
+            await connection.DeleteAsync(list);
+            OnListDeleted?.Invoke(this, list);
+        }
+
+        public async Task AddOrUpdateListAsync(ToDoList list)
+        {
+            if (list.Id == 0)
+            {
+                await AddListAsync(list);
+            }
+            else
+            {
+                await UpdateListAsync(list);
+            }
+        }
+
+        public async Task<List<ToDoList>> GetListsAsync()
+        {
+            await CreateConnectionAsync();
+            return await connection.Table<ToDoList>().ToListAsync();
+        }
+
+        public async Task UpdateListAsync(ToDoList list)
+        {
+            await CreateConnectionAsync();
+            await connection.UpdateAsync(list);
+            OnListUpdated?.Invoke(this, list);
+        }
+        #endregion
     }
 }
 
