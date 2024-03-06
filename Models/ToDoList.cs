@@ -6,9 +6,9 @@ namespace MyToDoMauiApp.Models
 	public class ToDoList
 	{
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-        public DateTime DateName { get; set; }
-        public List<TodoItem>? TodoItems { get; set; }
+        public int ListId { get; set; }
+        public DateTime ListDateName { get; set; }
+        //public List<TodoItem>? TodoItems { get; set; }
     }
 }
 

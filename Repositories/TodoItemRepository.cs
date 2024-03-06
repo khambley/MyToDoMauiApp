@@ -31,26 +31,25 @@ namespace MyToDoMauiApp.Repositories
             connection = new SQLiteAsyncConnection(databasePath);
 
             await connection.CreateTableAsync<TodoItem>();
-
-            if (await connection.Table<TodoItem>().CountAsync() == 0)
-            {
-                await connection.InsertAsync(new TodoItem()
-                {
-                    Title = "Welcome to DayByDayTasks App",
-                    Due = DateTime.UtcNow
-                });
-            }
-
             await connection.CreateTableAsync<ToDoList>();
 
             if (await connection.Table<ToDoList>().CountAsync() == 0)
             {
                 await connection.InsertAsync(new ToDoList()
                 {
-                    DateName = DateTime.Now,
-                    TodoItems = await GetItemsAsync()
+                    ListDateName = DateTime.Now.Date
                 });
             }
+
+            if (await connection.Table<TodoItem>().CountAsync() == 0)
+            {
+                await connection.InsertAsync(new TodoItem()
+                {
+                    Title = "Welcome to DayByDayTasks App",
+                    ListId = 1,
+                    ListDateName = DateTime.Now.Date
+                });
+            }        
         }
 
         #region ToDo Items
@@ -101,8 +100,19 @@ namespace MyToDoMauiApp.Repositories
         public async Task AddListAsync(ToDoList list)
         {
             await CreateConnectionAsync();
-            await connection.InsertAsync(list);
-            OnListAdded?.Invoke(this, list); //notify any subscribers
+            var lists = await GetListsAsync();
+            if(lists != null)
+            {
+                if(lists.Any(date => date.ListDateName == list.ListDateName))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "A list for that date already exists.", "OK");
+                }
+                else
+                {
+                    await connection.InsertAsync(list);
+                    OnListAdded?.Invoke(this, list); //notify any subscribers
+                }
+            }             
         }
 
         public async Task DeleteListAsync(ToDoList list)
@@ -114,7 +124,7 @@ namespace MyToDoMauiApp.Repositories
 
         public async Task AddOrUpdateListAsync(ToDoList list)
         {
-            if (list.Id == 0)
+            if (list.ListId == 0)
             {
                 await AddListAsync(list);
             }

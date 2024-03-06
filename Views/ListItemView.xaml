@@ -12,6 +12,6 @@
 
     <StackLayout Padding="14">       
         <Label Text="List Date" />
-        <DatePicker Date="{Binding ListItem.DateName}" />
+        <DatePicker Date="{Binding ListItem.ListDateName}" />
     </StackLayout>
 </ContentPage>

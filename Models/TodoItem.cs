@@ -7,9 +7,11 @@ namespace MyToDoMauiApp.Models
 	{
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        public int ListId { get; set; }
+        public DateTime ListDateName { get; set; }
         public string Title { get; set; }
         public bool Completed { get; set; }
-        public DateTime Due { get; set; }
+        public DateTime DueDate { get; set; }
     }
 }
 

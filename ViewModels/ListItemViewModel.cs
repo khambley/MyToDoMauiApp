@@ -17,7 +17,7 @@ namespace MyToDoMauiApp.ViewModels
         public ListItemViewModel(ITodoItemRepository repository)
 		{
             this.repository = repository;
-            ListItem = new ToDoList() { DateName = DateTime.Now };
+            ListItem = new ToDoList() { ListDateName = DateTime.Now.Date };
         }
 
         [RelayCommand]
