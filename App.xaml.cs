@@ -2,7 +2,7 @@
 
 public partial class App : Application
 {
-	public App(Views.MainView view)
+	public App(Views.ListMainView view)
 	{
 		InitializeComponent();
 
