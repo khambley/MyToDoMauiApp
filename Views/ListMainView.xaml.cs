@@ -9,5 +9,7 @@ public partial class ListMainView : ContentPage
 		InitializeComponent();
         viewModel.Navigation = Navigation;
         BindingContext = viewModel;
+
+        ListItemsListView.ItemSelected += (s, e) => ListItemsListView.SelectedItem = null;
     }
 }
