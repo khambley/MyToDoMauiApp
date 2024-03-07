@@ -11,12 +11,12 @@
     </ContentPage.ToolbarItems>
 
     <StackLayout Padding="14">
-
+        <Label Text="{Binding ListItem.ListDateName.Date, StringFormat='{0:MMMM d, yyyy}'}" />
         <Label Text="Title" />
         <Entry Text="{Binding Item.Title}" Margin="0,0,0,10" />
 
         <Label Text="Due" />
-        <DatePicker Date="{Binding Item.DueDate}" Margin="0,0,0,10" />
+        <DatePicker Date="{Binding Item.DueDate.Date}" Margin="0,0,0,10" />
 
         <StackLayout Orientation="Horizontal" Padding="0,10,0,0">
             <Switch IsToggled="{Binding Item.Completed}" />

@@ -12,6 +12,9 @@
 
     <StackLayout Padding="14">       
         <Label Text="List Date" />
-        <DatePicker Date="{Binding ListItem.ListDateName}" />
+        <DatePicker Date="{Binding ListItem.ListDateName.Date}" />
+        <Button Text="Add Task" Margin="0,10,0,0" Command="{Binding AddItemCommand}" />
+        <ListView />
     </StackLayout>
+    
 </ContentPage>

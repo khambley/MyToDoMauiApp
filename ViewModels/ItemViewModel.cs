@@ -15,18 +15,26 @@ namespace MyToDoMauiApp.ViewModels
 		[ObservableProperty]
 		TodoItem item;
 
+		[ObservableProperty]
+		ToDoList listItem;
+
 		public ItemViewModel(ITodoItemRepository repository)
 		{
 			this.repository = repository;
 			Item = new TodoItem()
 			{
-				DueDate = DateTime.Now.AddDays(1)
+				DueDate = DateTime.Now.Date
 			};
 		}
 
 		[RelayCommand]
 		public async Task SaveAsync()
 		{
+			if(ListItem != null)
+			{
+				Item.ListId = ListItem.ListId;
+				Item.ListDateName = ListItem.ListDateName.Date;
+			}
 			await repository.AddOrUpdateAsync(Item);
 			await Navigation.PopAsync();
 		}
