@@ -41,7 +41,7 @@ namespace MyToDoMauiApp.ViewModels
 
             this.repository = repository;
             this.services = services;
-            ListItem = new ToDoList() { ListDateName = DateTime.Now.Date };
+            ListItem = ListItem ?? new ToDoList() { ListDateName = DateTime.Now.Date };
             Task.Run(async () => await LoadDataAsync());
         }
 
@@ -64,7 +64,7 @@ namespace MyToDoMauiApp.ViewModels
             await Navigation.PushAsync(itemView);
         }
 
-        private async Task LoadDataAsync()
+        public async Task LoadDataAsync()
         {
             var items = await repository.GetItemsAsync();
 

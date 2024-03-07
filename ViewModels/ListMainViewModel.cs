@@ -64,6 +64,8 @@ namespace MyToDoMauiApp.ViewModels
 
 			vm.ListItem = listItem.ListItem;
 
+			await vm.LoadDataAsync();
+
 			listItemView.Title = "Edit Task List";
 
 			await Navigation.PushAsync(listItemView);
