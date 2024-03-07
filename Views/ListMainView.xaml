@@ -10,6 +10,7 @@
    <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddListItemCommand}"/>
    </ContentPage.ToolbarItems>
+
    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -18,8 +19,33 @@
 
         <Button Text="Toggle filter" />
 
-        <ListView Grid.Row="1">
+        <ListView Grid.Row="1"
+                  RowHeight="70"
+                  ItemsSource="{Binding ListItems}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="viewModels:ToDoListViewModel">
+                    <ViewCell>
+                        <Grid Padding="15,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
+                        <BoxView Grid.RowSpan="2" />
+
+                        <Label Grid.Column="1"
+                               Text="{Binding ListItem.ListDateName.Date, StringFormat='{0:MMMM d, yyyy}'}"
+                               FontSize="Medium"
+                               Padding="10,0,0,0" />
+                        
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </ContentPage>
