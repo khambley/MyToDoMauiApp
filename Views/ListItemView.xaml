@@ -1,10 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:MyToDoMauiApp.Converters"
              xmlns:viewModels="clr-namespace:MyToDoMauiApp.ViewModels"
              x:Class="MyToDoMauiApp.Views.ListItemView"
              x:DataType="viewModels:ListItemViewModel"
              Title="New Task List">
+     <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StatusColorConverter x:Key="statusColorConverter" />
+            <converters:FilterTextConverter x:Key="filterTextConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
@@ -13,8 +20,70 @@
     <StackLayout Padding="14">       
         <Label Text="List Date" />
         <DatePicker Date="{Binding ListItem.ListDateName.Date}" />
+
         <Button Text="Add Task" Margin="0,10,0,0" Command="{Binding AddItemCommand}" />
-        <ListView />
+
+        <Button Style="{DynamicResource FilterButton}"
+                Margin="0,10,0,10"
+                Text="{Binding ShowAll,Converter={StaticResource filterTextConverter}, StringFormat='Filter: {0}'}"
+                BackgroundColor="{DynamicResource ActiveColor}"
+                TextColor="Black"
+                Command="{Binding ToggleFilterCommand}">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button" Binding="{Binding ShowAll}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource CompletedColor}"/>
+                    <Setter Property="TextColor" Value="White" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+        <ListView x:Name="ItemsListView"
+                  Grid.Row="1"
+                  RowHeight="70"
+                  ItemsSource="{Binding Items}"
+                  SelectedItem="{Binding SelectedItem}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="viewModels:TodoItemViewModel">
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="{Binding StatusText}" Command="{Binding ToggleCompletedCommand}" />
+                        </ViewCell.ContextActions>
+                        <Grid Margin="0,5,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <BoxView Grid.RowSpan="2" Margin="0,0,5,0"
+                                     BackgroundColor="{Binding Item.Completed, Converter={StaticResource statusColorConverter}}" />
+
+                            <Label Grid.Column="1"
+                                   Text="{Binding Item.Title}"
+                                   FontSize="Medium" />
+
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
+                                   Text="{Binding Item.DueDate, StringFormat='{0:MMMM d, yyyy}'}"
+                                   FontSize="Micro" />
+
+                            <Label Grid.Column="1" Grid.Row="1"
+                                   HorizontalTextAlignment="End"
+                                   Text="Completed"
+                                   IsVisible="{Binding Item.Completed}"
+                                   FontSize="Micro"
+                                   TextColor="{StaticResource CompletedColor}" />
+
+                        </Grid>
+
+                    </ViewCell>
+
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
     
 </ContentPage>

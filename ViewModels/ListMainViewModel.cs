@@ -63,7 +63,7 @@ namespace MyToDoMauiApp.ViewModels
 
 			vm.ListItem = listItem.ListItem;
 
-			listItemView.Title = "Add Tasks to List";
+			listItemView.Title = "Edit Task List";
 
 			await Navigation.PushAsync(listItemView);
 		}
