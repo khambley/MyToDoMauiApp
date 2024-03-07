@@ -68,6 +68,9 @@ namespace MyToDoMauiApp.ViewModels
         {
             var items = await repository.GetItemsAsync();
 
+            // Only show items on the current list for that day
+            items = items.Where(i => i.ListId == ListItem.ListId).ToList();
+
             //Show only active (not completed) items
             if (!ShowAll)
             {

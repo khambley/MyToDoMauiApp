@@ -17,9 +17,19 @@
         <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
     </ContentPage.ToolbarItems>
 
-    <StackLayout Padding="14">       
-        <Label Text="List Date" />
-        <DatePicker Date="{Binding ListItem.ListDateName.Date}" />
+    <StackLayout Padding="14">
+        <HorizontalStackLayout>
+            <Label Text="List Date"
+                   VerticalTextAlignment="Center"
+                   Margin="0,0,10,0" />
+            <DatePicker Date="{Binding ListItem.ListDateName}"
+                        FontSize="Medium"
+                        FontAttributes="Bold"
+                        Format="ddd, MMMM d, yyyy"
+                        MinimumWidthRequest="160" />
+
+        </HorizontalStackLayout>
+        
 
         <Button Text="Add Task" Margin="0,10,0,0" Command="{Binding AddItemCommand}" />
 

@@ -33,7 +33,8 @@ namespace MyToDoMauiApp.ViewModels
 		private async Task LoadDataAsync()
 		{
 			var todolists = await repository.GetListsAsync();
-			var listItemViewModels = todolists.Select(li => CreateToDoListViewModel(li));
+			var sortedList = todolists.OrderByDescending(d => d.ListDateName).ToList();
+			var listItemViewModels = sortedList.Select(li => CreateToDoListViewModel(li));
 			ListItems = new ObservableCollection<ToDoListViewModel>(listItemViewModels);
 		}
 
