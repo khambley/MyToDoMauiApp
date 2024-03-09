@@ -67,7 +67,7 @@
 
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Text="{Binding Item.DueDate, StringFormat='{0:MMMM d, yyyy}'}"
+                                   Text="{Binding Item.TaskDate, StringFormat='{0:MMMM d, yyyy}'}"
                                    FontSize="Micro" />
 
                             <Label Grid.Column="1" Grid.Row="1"

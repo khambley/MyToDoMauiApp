@@ -64,6 +64,7 @@ namespace MyToDoMauiApp.ViewModels
 
 			vm.ListItem = listItem.ListItem;
 
+			//Have to reload the data in order for the ListItem to be set correctly on vm.
 			await vm.LoadDataAsync();
 
 			listItemView.Title = "Edit Task List";

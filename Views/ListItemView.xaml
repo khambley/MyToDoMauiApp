@@ -14,7 +14,10 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" Command="{Binding SaveCommand}" />
+        <ToolbarItem x:Name="saveButton"
+                     Text="Save"
+                     Command="{Binding SaveCommand}"
+                     />
     </ContentPage.ToolbarItems>
 
     <StackLayout Padding="14">
@@ -22,11 +25,18 @@
             <Label Text="List Date"
                    VerticalTextAlignment="Center"
                    Margin="0,0,10,0" />
-            <DatePicker Date="{Binding ListItem.ListDateName}"
+
+            <Label x:Name="listDateLabel"
+                   Text="{Binding ListItem.ListDateName, StringFormat='{0:dddd, MMMM d, yyyy}'}"
+                   IsVisible="false" />
+
+            <DatePicker x:Name="listDatePicker"
+                        Date="{Binding ListItem.ListDateName}"
                         FontSize="Medium"
                         FontAttributes="Bold"
                         Format="ddd, MMMM d, yyyy"
-                        MinimumWidthRequest="160" />
+                        MinimumWidthRequest="160"
+                        />
 
         </HorizontalStackLayout>
         
@@ -76,7 +86,7 @@
 
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Text="{Binding Item.DueDate, StringFormat='{0:MMMM d, yyyy}'}"
+                                   Text="{Binding Item.TaskDate, StringFormat='{0:MMMM d, yyyy}'}"
                                    FontSize="Micro" />
 
                             <Label Grid.Column="1" Grid.Row="1"

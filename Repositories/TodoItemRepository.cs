@@ -48,7 +48,7 @@ namespace MyToDoMauiApp.Repositories
                     Title = "Welcome to DayByDayTasks App",
                     ListId = 1,
                     ListDateName = DateTime.Now.Date,
-                    DueDate = DateTime.Now.Date
+                    TaskDate = DateTime.Now.Date
                    
                 });
             }        

@@ -25,9 +25,9 @@ public static class MauiProgram
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
-        AppCenter.Start("ios=c493b77d-6140-4b5b-af79-cf29b09e6e5c;" +
-                  "android=697f52e7-992c-4125-b883-e9bcadc12772;",
-                  typeof(Analytics), typeof(Crashes));
+        //AppCenter.Start("ios=c493b77d-6140-4b5b-af79-cf29b09e6e5c;" +
+        //          "android=697f52e7-992c-4125-b883-e9bcadc12772;",
+        //          typeof(Analytics), typeof(Crashes));
 
         return builder.Build();
 	}

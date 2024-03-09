@@ -11,7 +11,7 @@ namespace MyToDoMauiApp.Models
         public DateTime ListDateName { get; set; }
         public string Title { get; set; }
         public bool Completed { get; set; }
-        public DateTime DueDate { get; set; }
+        public DateTime TaskDate { get; set; }
     }
 }
 

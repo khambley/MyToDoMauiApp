@@ -23,7 +23,7 @@ namespace MyToDoMauiApp.ViewModels
 			this.repository = repository;
 			Item = new TodoItem()
 			{
-				DueDate = DateTime.Now.Date
+				TaskDate = DateTime.Now.Date
 			};
 		}
 
