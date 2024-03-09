@@ -15,7 +15,7 @@
         <Label Text="Title" />
         <Entry Text="{Binding Item.Title}" Margin="0,0,0,10" />
 
-        <Label Text="Due" />
+        <Label Text="Task Date" />
         <DatePicker Date="{Binding Item.TaskDate}" Margin="0,0,0,10" />
 
         <StackLayout Orientation="Horizontal" Padding="0,10,0,0">
@@ -23,12 +23,23 @@
             <Label Text="Completed" VerticalTextAlignment="Center" Padding="10,0,0,0" />
         </StackLayout>
 
-        <Button Text="Delete Item"
-                BackgroundColor="Red"
-                TextColor="White"
-                FontSize="Medium"
-                Padding="10"
-                Margin="0,20,0,0"
-                Command="{Binding DeleteItemCommand}" />
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+             <Button Text="Save Item"
+                     BackgroundColor="Green"
+                     TextColor="White"
+                     FontSize="Medium"
+                     Padding="50,10,55,10"
+                     Margin="0,20,5,0"
+                     Command="{Binding SaveCommand}" />
+            <Button Text="Delete Item"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    FontSize="Medium"
+                    Padding="45,10,35,10"
+                    Margin="5,20,0,0"
+                    Command="{Binding DeleteItemCommand}" />
+
+        </HorizontalStackLayout>
+        
     </StackLayout>
 </ContentPage>

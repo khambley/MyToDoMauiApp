@@ -9,8 +9,10 @@ public partial class ListItemView : ContentPage
 		InitializeComponent();
         viewModel.Navigation = Navigation;
         BindingContext = viewModel;
-        
-        
+
+        // a fix for the item remaining selected when we go back,
+        // couldn't select another row without this fix.
+        ItemsListView.ItemSelected += (s, e) => ItemsListView.SelectedItem = null;
     }
 
     protected override void OnAppearing()

@@ -16,8 +16,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="saveButton"
                      Text="Save"
-                     Command="{Binding SaveCommand}"
-                     />
+                     Command="{Binding SaveCommand}" />
     </ContentPage.ToolbarItems>
 
     <StackLayout Padding="14">
@@ -35,13 +34,13 @@
                         FontSize="Medium"
                         FontAttributes="Bold"
                         Format="ddd, MMMM d, yyyy"
-                        MinimumWidthRequest="160"
-                        />
-
+                        MinimumWidthRequest="160" />
         </HorizontalStackLayout>
         
 
-        <Button Text="Add Task" Margin="0,10,0,0" Command="{Binding AddItemCommand}" />
+        <Button Text="Add Task"
+                Margin="0,10,0,0"
+                Command="{Binding AddItemCommand}" />
 
         <Button Style="{DynamicResource FilterButton}"
                 Margin="0,10,0,10"
@@ -86,14 +85,14 @@
 
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Text="{Binding Item.TaskDate, StringFormat='{0:MMMM d, yyyy}'}"
-                                   FontSize="Micro" />
+                                   Text="{Binding Item.TaskDate, StringFormat='{0:ddd, MMMM d, yyyy}'}"
+                                   FontSize="Small" />
 
                             <Label Grid.Column="1" Grid.Row="1"
                                    HorizontalTextAlignment="End"
                                    Text="Completed"
                                    IsVisible="{Binding Item.Completed}"
-                                   FontSize="Micro"
+                                   FontSize="Small"
                                    TextColor="{StaticResource CompletedColor}" />
 
                         </Grid>
