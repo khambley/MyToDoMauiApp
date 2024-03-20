@@ -18,6 +18,12 @@
         <Label Text="Task Date" />
         <DatePicker Date="{Binding Item.TaskDate}" Margin="0,0,0,10" />
 
+        <Label Text="Notes" />
+        <Editor x:Name="notes"
+                Placeholder="Enter your notes here"
+                HeightRequest="200"
+                Text="{Binding Item.Notes}" />
+
         <StackLayout Orientation="Horizontal" Padding="0,10,0,0">
             <Switch IsToggled="{Binding Item.Completed}" />
             <Label Text="Completed" VerticalTextAlignment="Center" Padding="10,0,0,0" />

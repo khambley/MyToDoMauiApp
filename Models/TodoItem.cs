@@ -12,6 +12,7 @@ namespace MyToDoMauiApp.Models
         public string Title { get; set; }
         public bool Completed { get; set; }
         public DateTime TaskDate { get; set; }
+        public string Notes { get; set; }
     }
 }
 

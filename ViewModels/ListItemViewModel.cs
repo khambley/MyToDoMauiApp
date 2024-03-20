@@ -58,10 +58,21 @@ namespace MyToDoMauiApp.ViewModels
             var itemView = services.GetRequiredService<ItemView>();
             var vm = itemView.BindingContext as ItemViewModel;
 
-            vm.ListItem = listItem;
-            itemView.Title = "Add new task to list";
+            
+            if(listItem.ListId == 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Alert", "You must save the list before adding tasks to it", "Ok");
 
-            await Navigation.PushAsync(itemView);
+            }
+            else
+            {
+                vm.ListItem = listItem;
+
+                itemView.Title = "Add new task to list";
+
+                await Navigation.PushAsync(itemView);
+            }
+            
         }
 
         public async Task LoadDataAsync()
