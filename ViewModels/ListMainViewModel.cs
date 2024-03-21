@@ -30,7 +30,7 @@ namespace MyToDoMauiApp.ViewModels
 			Task.Run(async () => await LoadDataAsync());
 		}
 
-		private async Task LoadDataAsync()
+		public async Task LoadDataAsync()
 		{
 			var todolists = await repository.GetListsAsync();
 			var sortedList = todolists.OrderByDescending(d => d.ListDateName).ToList();
