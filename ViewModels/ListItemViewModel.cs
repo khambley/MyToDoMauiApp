@@ -95,7 +95,7 @@ namespace MyToDoMauiApp.ViewModels
 
         private TodoItemViewModel CreateTodoItemViewModel(TodoItem item)
         {
-            var itemViewModel = new TodoItemViewModel(item);
+            var itemViewModel = new TodoItemViewModel(repository, services, item);
             itemViewModel.ItemStatusChanged += ItemStatusChanged;
             return itemViewModel;
         }
@@ -129,6 +129,7 @@ namespace MyToDoMauiApp.ViewModels
             var itemView = services.GetRequiredService<ItemView>();
             var vm = itemView.BindingContext as ItemViewModel;
             vm.Item = item.Item;
+
             itemView.Title = "Edit To-Do Item";
 
             await Navigation.PushAsync(itemView);

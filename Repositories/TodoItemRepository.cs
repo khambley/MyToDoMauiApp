@@ -88,6 +88,12 @@ namespace MyToDoMauiApp.Repositories
             return await connection.Table<TodoItem>().ToListAsync();
         }
 
+        public async Task<List<TodoItem>> GetItemsByListId(int listId)
+        {
+            await CreateConnectionAsync();
+            return await connection.Table<TodoItem>().Where(x => x.ListId == listId).ToListAsync();
+        }
+
         public async Task UpdateItemAsync(TodoItem item)
         {
             await CreateConnectionAsync();
@@ -141,7 +147,11 @@ namespace MyToDoMauiApp.Repositories
             await CreateConnectionAsync();
             return await connection.Table<ToDoList>().ToListAsync();
         }
-
+        public async Task<ToDoList> GetListById(int listId)
+        {
+            await CreateConnectionAsync();
+            return await connection.Table<ToDoList>().Where(l => l.ListId == listId).FirstOrDefaultAsync();
+        }
         public async Task UpdateListAsync(ToDoList list)
         {
             await CreateConnectionAsync();

@@ -27,6 +27,10 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="viewModels:ToDoListViewModel">
                     <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Delete" IsDestructive="True" Command="{Binding DeleteListCommand}" />
+                        </ViewCell.ContextActions>
+
                         <Grid Padding="15,10">
                         <Grid.RowDefinitions>
                             <RowDefinition />

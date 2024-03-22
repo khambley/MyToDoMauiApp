@@ -14,12 +14,14 @@ namespace MyToDoMauiApp.Repositories
         event EventHandler<ToDoList> OnListDeleted;
 
         Task<List<TodoItem>> GetItemsAsync();
+        Task<List<TodoItem>> GetItemsByListId(int listId);
         Task AddItemAsync(TodoItem item);
         Task UpdateItemAsync(TodoItem item);
         Task AddOrUpdateAsync(TodoItem item);
         Task DeleteItemAsync(TodoItem item);
 
         Task<List<ToDoList>> GetListsAsync();
+        Task<ToDoList> GetListById(int listId);
         Task AddListAsync(ToDoList list);
         Task UpdateListAsync(ToDoList list);
         Task AddOrUpdateListAsync(ToDoList list);

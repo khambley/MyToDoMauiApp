@@ -40,7 +40,7 @@ namespace MyToDoMauiApp.ViewModels
 
 		private ToDoListViewModel CreateToDoListViewModel(ToDoList todolist)
 		{
-			var listItemViewModel = new ToDoListViewModel(todolist);
+			var listItemViewModel = new ToDoListViewModel(repository, todolist);
 			return listItemViewModel;
 		}
 
@@ -63,6 +63,7 @@ namespace MyToDoMauiApp.ViewModels
 			var vm = listItemView.BindingContext as ListItemViewModel;
 
 			vm.ListItem = listItem.ListItem;
+			vm.ListItem.ListDateName = listItem.ListItem.ListDateName;
 
 			//Have to reload the data in order for the ListItem to be set correctly on vm.
 			await vm.LoadDataAsync();

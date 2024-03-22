@@ -77,7 +77,7 @@ namespace MyToDoMauiApp.ViewModels
 
         private TodoItemViewModel CreateTodoItemViewModel(TodoItem item)
         {
-            var itemViewModel = new TodoItemViewModel(item);
+            var itemViewModel = new TodoItemViewModel(repository, services, item);
             itemViewModel.ItemStatusChanged += ItemStatusChanged;
             return itemViewModel;
         }
